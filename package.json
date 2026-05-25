@@ -1,9 +1,9 @@
 {
   "name": "elsa-calc",
   "version": "1.0.0",
-  "main": "main.js",
   "description": "艾莎计算器",
-  "author": "你的名字",
+  "main": "main.js",
+  "author": "",
   "license": "MIT",
   "scripts": {
     "start": "electron .",
