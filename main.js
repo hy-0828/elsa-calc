@@ -3,16 +3,16 @@ let mainWin;
 
 function createWindow() {
     mainWin = new BrowserWindow({
-        width: 520,
-        height: 600,
-        minWidth: 520,
-        maxWidth: 520,
-        minHeight: 600,
-        maxHeight: 600,
+        width: 540,
+        height: 650,
+        minWidth: 540,
+        maxWidth: 540,
+        minHeight: 650,
+        maxHeight: 650,
         resizable: false,
-        frame: false,           // 关键：去除窗口边框
-        transparent: true,      // 推荐开启，配合下面CSS更干净
-        backgroundColor: '#00000000', // 透明背景
+        frame: false,                    // 无边框
+        transparent: false,
+        backgroundColor: '#1a1a22',
         title: "艾莎计算器",
         webPreferences: {
             nodeIntegration: true,
@@ -25,4 +25,7 @@ function createWindow() {
 }
 
 app.whenReady().then(createWindow);
-app.on('window-all-closed', () => app.quit());
+
+app.on('window-all-closed', () => {
+    if (process.platform !== 'darwin') app.quit();
+});
