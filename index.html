@@ -20,57 +20,15 @@
             overflow: hidden;
         }
 
-        /* 自定义标题栏 */
-        .title-bar {
-            height: 38px;
-            background: #1f1f28;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 12px;
-            -webkit-app-region: drag;
-            border-bottom: 1px solid #333;
-        }
-
-        .title {
-            font-size: 14px;
-            color: #ddd;
-        }
-
-        .title-buttons {
-            display: flex;
-            gap: 6px;
-        }
-
-        .title-btn {
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 4px;
-            transition: all 0.2s;
-        }
-
-        .title-btn:hover {
-            background: #3a3a4f;
-        }
-
-        .title-btn.close:hover {
-            background: #e81123;
-        }
-
         .wrap {
             display: flex;
             gap: 0;
             margin: 0;
-            padding: 20px;
+            padding: 25px 20px 20px 20px;
             align-items: flex-start;
             position: relative;
             justify-content: center;
-            height: calc(100vh - 38px);
+            height: 100vh;
             box-sizing: border-box;
         }
 
@@ -117,10 +75,15 @@
             overflow: hidden;
         }
 
-        /* 下面样式保持不变 */
-        h2 { text-align: center; margin-bottom: 18px; color: #ffffff; font-size: 18px; }
+        h2 {
+            text-align: center;
+            margin-bottom: 18px;
+            color: #ffffff;
+            font-size: 18px;
+        }
+
         .rate-row { display: flex; gap: 10px; margin-bottom: 14px; }
-        .rate-item { flex: 1; }
+        .rate-item { flex: 1; position: relative; }
         label { display: block; font-size: 13px; color: #b0b0c0; margin-bottom: 3px; }
         input {
             width: 100%;
@@ -131,9 +94,29 @@
             background: #333344;
             outline: none;
         }
+
         .data-row { display: flex; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
         .data-item { flex: 1; min-width: 110px; }
-        .btn-group { display: flex; gap: 6px; margin: 16px 0; flex-wrap: wrap; position: relative; }
+
+        .btn-group { 
+            display: flex; 
+            gap: 6px; 
+            margin: 16px 0; 
+            flex-wrap: wrap; 
+            position: relative; 
+        }
+        .tip-msg {
+            position: absolute;
+            top: -26px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #f53f3f;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            display: none;
+            white-space: nowrap;
+        }
         .oper-btn {
             flex: 1;
             padding: 9px;
@@ -146,46 +129,82 @@
         .record-btn { background: #10b981; }
         .back-btn { background: #9362d9; }
         .clear-btn { background: #c83c3c; }
+
         .result-box {
             background: #303042;
             padding: 12px;
             border-radius: 8px;
             margin: 14px 0;
         }
-        .result-item { display: flex; justify-content: space-between; padding: 4px 0; font-size: 14px; }
-        .keyboard { position: absolute; width: 320px; background: #252532; border: 1px solid #444; border-radius: 8px; padding: 10px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; z-index: 999; display: none; }
-        .key { height: 40px; font-size: 16px; border: none; border-radius: 6px; cursor: pointer; background: #3a3a4f; }
+        .result-item { 
+            display: flex; 
+            justify-content: space-between; 
+            padding: 4px 0; 
+            font-size: 14px; 
+        }
+
+        .keyboard {
+            position: absolute;
+            width: 320px;
+            background: #252532;
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 10px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+            z-index: 999;
+            display: none;
+        }
+        .key {
+            height: 40px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            background: #3a3a4f;
+        }
         .key:hover { background: #4a4a62; }
         .key.del { background: #c83c3c; }
         .key.ok { background: #2b7def; }
     </style>
 </head>
 <body id="pageWrap">
-    <!-- 自定义标题栏 -->
-    <div class="title-bar">
-        <div class="title">艾莎计算器</div>
-        <div class="title-buttons">
-            <div class="title-btn" onclick="window.minimizeWindow()">−</div>
-            <div class="title-btn close" onclick="window.closeWindow()">×</div>
-        </div>
-    </div>
 
     <div class="wrap">
         <div class="container">
             <h2>艾莎计算器</h2>
 
             <div class="rate-row">
-                <div class="rate-item"><label>红倍率</label><input type="text" id="rate1" value="3.5" readonly></div>
-                <div class="rate-item"><label>金倍率</label><input type="text" id="rate2" value="0.85" readonly></div>
+                <div class="rate-item">
+                    <label>红倍率</label>
+                    <input type="text" id="rate1" value="3.5" readonly>
+                </div>
+                <div class="rate-item">
+                    <label>金倍率</label>
+                    <input type="text" id="rate2" value="0.85" readonly>
+                </div>
             </div>
 
             <div class="data-row">
-                <div class="data-item"><label>余格</label><input type="text" id="yg" readonly placeholder="点击输入"></div>
-                <div class="data-item"><label>金价</label><input type="text" id="jj" readonly placeholder="点击输入"></div>
+                <div class="data-item">
+                    <label>余格</label>
+                    <input type="text" id="yg" readonly placeholder="点击输入">
+                </div>
+                <div class="data-item">
+                    <label>金价</label>
+                    <input type="text" id="jj" readonly placeholder="点击输入">
+                </div>
             </div>
             <div class="data-row">
-                <div class="data-item"><label>现价</label><input type="text" id="xj" readonly placeholder="点击输入"></div>
-                <div class="data-item"><label>实价</label><input type="text" id="sj" readonly placeholder="点击输入"></div>
+                <div class="data-item">
+                    <label>现价</label>
+                    <input type="text" id="xj" readonly placeholder="点击输入">
+                </div>
+                <div class="data-item">
+                    <label>实价</label>
+                    <input type="text" id="sj" readonly placeholder="点击输入">
+                </div>
             </div>
 
             <div class="btn-group">
@@ -209,8 +228,15 @@
             <table id="recordTable">
                 <thead>
                 <tr>
-                    <th>时间</th><th>余格</th><th>金价</th><th>现价</th><th>实价</th>
-                    <th>底价</th><th>顶价</th><th>底价比</th><th>顶价比</th>
+                    <th>时间</th>
+                    <th>余格</th>
+                    <th>金价</th>
+                    <th>现价</th>
+                    <th>实价</th>
+                    <th>底价</th>
+                    <th>顶价</th>
+                    <th>底价比</th>
+                    <th>顶价比</th>
                 </tr>
                 </thead>
                 <tbody></tbody>
@@ -218,7 +244,6 @@
         </div>
     </div>
 
-    <!-- 数字键盘 -->
     <div class="keyboard" id="numKeyboard">
         <button class="key" onclick="numClick(1)">1</button>
         <button class="key" onclick="numClick(2)">2</button>
@@ -251,18 +276,16 @@
     const expandBtn = document.querySelector('.expand-btn');
     const dataInputs = ['yg', 'jj', 'xj', 'sj'];
 
-    // 窗口控制函数
-    window.minimizeWindow = () => { require('electron').remote.getCurrentWindow().minimize(); };
-    window.closeWindow = () => { require('electron').remote.getCurrentWindow().close(); };
-
-    // 其余JavaScript代码（保持你原来的逻辑）
     function loadRecord() {
         try {
             if (fs.existsSync(dataPath)) {
-                recordArr = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
+                let txt = fs.readFileSync(dataPath, 'utf8');
+                recordArr = JSON.parse(txt);
                 renderTable();
             }
-        } catch (e) { recordArr = []; }
+        } catch (e) {
+            recordArr = [];
+        }
     }
 
     function saveLocalData() {
@@ -271,12 +294,146 @@
 
     function toggleRecord() {
         recordOpen = !recordOpen;
-        recordPanel.classList.toggle('record-hide');
-        expandBtn.innerText = recordOpen ? '◀' : '▶';
+        if (recordOpen) {
+            recordPanel.classList.remove('record-hide');
+            expandBtn.innerText = '◀';
+        } else {
+            recordPanel.classList.add('record-hide');
+            expandBtn.innerText = '▶';
+        }
     }
 
-    // ... 其他函数（calculate, saveRecord, renderTable 等）保持不变 ...
-    // （为了节省篇幅，这里省略了你原来的完整JS，如果你需要我补全全部JS请告诉我）
+    function rollBackData() {
+        if (recordArr.length <= 0) return;
+        const lastData = recordArr.shift();
+        saveLocalData();
+        document.getElementById('yg').value = lastData.yg;
+        document.getElementById('jj').value = lastData.jj;
+        document.getElementById('xj').value = lastData.xj;
+        document.getElementById('sj').value = lastData.sj;
+        document.getElementById('dj').innerText = lastData.dj;
+        document.getElementById('ding').innerText = lastData.ding;
+        document.getElementById('djb').innerText = lastData.djb;
+        document.getElementById('dingb').innerText = lastData.dingb;
+        renderTable();
+    }
+
+    function checkAutoCalc() {
+        const ygVal = document.getElementById('yg').value.trim();
+        const jjVal = document.getElementById('jj').value.trim();
+        const xjVal = document.getElementById('xj').value.trim();
+        if (ygVal && jjVal && xjVal) calculate();
+    }
+
+    // 输入框点击弹出键盘
+    ['rate1','rate2','yg','jj','xj','sj'].forEach(id => {
+        const inp = document.getElementById(id);
+        inp.addEventListener('click', () => {
+            inp.value = '';
+            activeInput = inp;
+            tempVal = '';
+            const rect = inp.getBoundingClientRect();
+            keyboard.style.left = rect.left + 'px';
+            keyboard.style.top = rect.bottom + window.scrollY + 8 + 'px';
+            keyboard.style.display = 'grid';
+        });
+    });
+
+    document.getElementById('pageWrap').addEventListener('click', e => {
+        if (!keyboard.contains(e.target)) hideKeyboard();
+    });
+
+    function hideKeyboard() {
+        keyboard.style.display = 'none';
+        activeInput = null;
+    }
+
+    function numClick(num) {
+        if (!activeInput) return;
+        if (tempVal === '' && num === '.') return;
+        if (tempVal.includes('.') && num === '.') return;
+        tempVal += num;
+        activeInput.value = tempVal;
+        checkAutoCalc();
+    }
+
+    function delClick() {
+        if (!activeInput) return;
+        tempVal = tempVal.slice(0, -1);
+        activeInput.value = tempVal || '';
+        checkAutoCalc();
+    }
+
+    function clearInput() {
+        if (!activeInput) return;
+        tempVal = '';
+        activeInput.value = '';
+        checkAutoCalc();
+    }
+
+    function calculate() {
+        const rate1 = parseFloat(document.getElementById('rate1').value) || 3.5;
+        const rate2 = parseFloat(document.getElementById('rate2').value) || 0.85;
+        const yg = parseFloat(document.getElementById('yg').value) || 0;
+        const jj = parseFloat(document.getElementById('jj').value) || 0;
+        const xj = parseFloat(document.getElementById('xj').value) || 0;
+        const sj = parseFloat(document.getElementById('sj').value) || 0;
+
+        const dj = (xj - yg * rate1).toFixed(2);
+        const ding = (xj + yg * rate2).toFixed(2);
+        const djb = jj ? ((dj / jj) * 100).toFixed(2) : '0.00';
+        const dingb = jj ? ((ding / jj) * 100).toFixed(2) : '0.00';
+
+        document.getElementById('dj').innerText = dj;
+        document.getElementById('ding').innerText = ding;
+        document.getElementById('djb').innerText = djb;
+        document.getElementById('dingb').innerText = dingb;
+    }
+
+    function saveRecord() {
+        const sjVal = document.getElementById('sj').value.trim();
+        if (!sjVal) {
+            tipMsg.style.display = 'block';
+            setTimeout(() => tipMsg.style.display = 'none', 1500);
+            return;
+        }
+        const time = new Date().toLocaleTimeString();
+        const yg = document.getElementById('yg').value;
+        const jj = document.getElementById('jj').value;
+        const xj = document.getElementById('xj').value;
+        const sj = sjVal;
+        const dj = document.getElementById('dj').innerText;
+        const ding = document.getElementById('ding').innerText;
+        const djb = document.getElementById('djb').innerText;
+        const dingb = document.getElementById('dingb').innerText;
+
+        recordArr.unshift({ time, yg, jj, xj, sj, dj, ding, djb, dingb });
+        saveLocalData();
+        renderTable();
+        dataInputs.forEach(id => document.getElementById(id).value = '');
+    }
+
+    function renderTable() {
+        const tbody = document.querySelector('#recordTable tbody');
+        let html = '';
+        recordArr.forEach(item => {
+            html += `<tr>
+                <td>${item.time}</td><td>${item.yg}</td><td>${item.jj}</td><td>${item.xj}</td><td>${item.sj}</td>
+                <td>${item.dj}</td><td>${item.ding}</td><td>${item.djb}</td><td>${item.dingb}</td>
+            </tr>`;
+        });
+        tbody.innerHTML = html;
+    }
+
+    function clearAll() {
+        dataInputs.forEach(id => document.getElementById(id).value = '');
+        document.getElementById('dj').innerText = '0';
+        document.getElementById('ding').innerText = '0';
+        document.getElementById('djb').innerText = '0.00';
+        document.getElementById('dingb').innerText = '0.00';
+        tempVal = '';
+        hideKeyboard();
+    }
 
     window.onload = loadRecord;
 </script>
