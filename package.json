@@ -1,6 +1,6 @@
 {
   "name": "elsa-calc",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "艾莎计算器",
   "main": "main.js",
   "author": "",
@@ -24,7 +24,8 @@
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
-      "createStartMenuShortcut": true
+      "createStartMenuShortcut": true,
+      "shortcutName": "艾莎计算器"
     }
   },
   "devDependencies": {
