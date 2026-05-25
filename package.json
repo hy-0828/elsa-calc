@@ -1,0 +1,34 @@
+{
+  "name": "elsa-calc",
+  "version": "1.0.0",
+  "main": "main.js",
+  "description": "艾莎计算器",
+  "author": "你的名字",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder",
+    "dist:win": "electron-builder --win"
+  },
+  "build": {
+    "appId": "com.elsa.calc",
+    "productName": "艾莎计算器",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": ["nsis", "zip"],
+      "icon": "icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  },
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.13.3"
+  }
+}
